@@ -1,0 +1,28 @@
+{% extends 'base.html' %} 
+{% load crispy_forms_tags %}
+
+
+{% load static %}
+{% block content %}
+<div class="container">
+
+<div class="row col-lg-4 justify-content-center text-black default">
+  <div class="form-group">
+    <form action="" method="post">
+      <br>
+      {% csrf_token %} 
+      {{ form|crispy }}
+      <br>
+      <button type="submit" class="btn btn-danger mb-3">Sign in</button>
+    </form>
+  </div>
+  </div>
+  {% comment %} Déjà enregistré {% endcomment %}
+  <div class="row col-lg-4 left text-black default">
+    <p class="text-muted font-weight-bold">
+      Tu n'as pas de compte? 
+      <a href="{% url 'user:signup' %}" class="text-primary">Qu'est ce que tu attends ?</a>
+    </p>
+  </div>
+</div>
+{% endblock %}

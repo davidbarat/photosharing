@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container col-lg-8 bg-white text-black text-center">
+    {% if user.is_authenticated %}
+    <div class="row">
+      {% for photo in queryset %}
+      <div class="col-lg-4 col-md-4 col-xs-6 cadre">
+        <a href="{% url 'photo:detail' photo.id %}" class="d-block mb-4 h-100">
+          <img src="{{photo.image.url}}" class="img-fluid rounded" alt="{{photo.title}}" />
+        </a>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+</div>
+
+<div class="container justify-content-center">
+  <div class="text-center">
+  <span class="step-links">
+      {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">next</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </div>
+  </span>
+</div>
+
+{% endblock %}

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% load static %}
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Partage Photo Homepage</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{% static 'assets/favicon.ico' %}" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <!-- <link href="/css/styles.css" rel="stylesheet" /> -->
+        <link rel="stylesheet" type="text/css" href="{% static 'config/css/styles.css' %}">
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'photo:list' %}" id="home">Home</a></li>
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Photos & Tags</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'photo:allphoto' %}">Toutes les Photos</a></li>
+                                <li><a class="dropdown-item" href="{% url 'photo:alltag' %}">Liste des Tags</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    {% include 'search.html' %}
+
+                    <ul class="navbar-nav pull-right col-md-4">
+                        
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'photo:profile' %}" 
+                                id="user">Hi {{ user.username }}</a></li>
+
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'photo:create' %}"
+                                id="moncompte">Ajouter des photos </a></li>
+                    
+                        <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user:logout' %}"
+                                    id="deconnexion">Déconnexion</a></li>
+                        {% endif %}
+                        {% if not user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" aria-current="page" href="{% url 'user:login' %}">Login
+                    </a></li>
+                    {% endif %}
+                </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5 default">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Partager vos photos</h1>
+                </div>
+            </div>
+        </header>
+
+        <li class="nav-item center">
+            <br>
+           
+        </li>
+        <br>
+
+        {% block content %}
+
+        {% include "autocomplete/scripts.html" %}
+
+        {% endblock %}
+
+        <!-- Footer-->
+        <footer class="py-5 bg-dark">
+            <div class="container"><p class="m-0 text-center text-white">Copyright</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <!--<script src="js/scripts.js"></script>-->
+        <script src="{% static 'config/js/headroom.min.js' %}"></script>
+       
+        
+    </body>
+</html>
