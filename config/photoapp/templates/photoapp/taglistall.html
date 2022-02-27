@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container" class='col-lg-4'>
+    
+        <p> Voici la liste des tags déjà utilisés : </p>
+{% for elem in unique_tag %}
+<p class="col-lg-1"><a href="{% url 'photo:tag' elem %}" class="btn btn-sm list-group-item list-group-item-primary">{{ elem }}</a></p>
+
+{% endfor %}
+
+</div>
+{% endblock %}

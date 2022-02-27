@@ -1,0 +1,46 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="row pb-5">
+{% for photo in queryset %}
+  <div class="col-md-3">
+    <img src="{{photo.image.url}}" alt="" width="100%" />
+    <ul class="list-group list-group-horizontal-lg list-unstyled py-4">
+      {% for tag in photo.tags.all %}
+        <li class="text-center"><a href="{% url 'photo:tag' tag.slug %}" class="btn btn-sm list-group-item list-group-item-primary">{{tag.name}}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
+</div>
+
+
+<div class="container justify-content-center">
+  <div class="text-center">
+  <span class="step-links">
+      {% if page_obj.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+      {% endif %}
+
+      <span class="current">
+          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+      </span>
+
+      {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">next</a>
+          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+      {% endif %}
+    </div>
+  </span>
+</div>
+
+<section class="page-section bg-white" id="list">
+  <div class="container">
+      <div class="row justify-content-center">
+          <h3>{{ message }}</h3>
+      </div>
+  </div>
+</section>
+
+{% endblock %}
